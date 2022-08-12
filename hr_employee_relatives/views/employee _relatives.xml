@@ -1,0 +1,131 @@
+<odoo>
+<record model="ir.ui.view" id="employee_relatives_form_view">
+            <field name="name">employee_relatives.form</field>
+            <field name="model">employee.relatives</field>
+            <field name="arch" type="xml">
+                <form string="Employee Relatives">
+                    <header>
+                        <button id= "button_confirm" name="action_confirm" type="object" string="Confirm" states="draft" class="oe_highlight"/>
+                        <button id= "button_done" name="action_done" type="object" string="Ended" states="confirm" class="oe_highlight"/>
+                        <button id= "button_draft" name="action_draft" type="object" string="Draft" states="Canceled"  class="oe_highlight"/>
+                        <button id= "button_cancel" name="action_cancel" string="Cancel" states="draft,done,confirm" type="object" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+
+                              <field name="employee" domain="[('contract_state', '=', 'open')]"/>
+                              <field name="phone"/>
+                            <field name="num_of_relatives"/>
+                            </group>
+                            <group>
+                                <field name="last_user_id" readonly="1"/>
+                            </group>
+
+                        </group>
+
+                        <notebook>
+                            <page string="Relatives">
+                                <field name="relatives">
+                                    <tree editable="bottom">
+                                        <field name="employee_rel_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="degree_of_relation"/>
+                                        <field name="birth_date"/>
+                                        <field name="age"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                      <field name="message_follower_ids"/>
+                      <field name="activity_ids"/>
+                      <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+      <record model="ir.ui.view" id="employee_relatives_tree_view">
+            <field name="name">employee_relatives.tree</field>
+            <field name="model">employee.relatives</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Relatives">
+                    <field name="employee"/>
+                    <field name="phone"/>
+                    <field name="num_of_relatives"/>
+                    <field name="relatives"/>
+                </tree>
+            </field>
+        </record>
+
+<record model="ir.ui.view" id="view_employee_relative_kanban">
+            <field name="name">relative.kanban</field>
+            <field name="model">employee.relatives</field>
+            <field name="arch" type="xml">
+                    <kanban default_group_by="employee">
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div
+                                    t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}}
+                                                  oe_kanban_global_click_edit oe_semantic_html_override
+                                                  oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                                <div class="oe_dropdown_kanban">
+                                    <!-- dropdown menu -->
+                                    <div class="oe_dropdown_toggle">
+                                        <i class="fa fa-bars fa-lg" title="Toggle"/>
+                                        <ul class="oe_dropdown_menu">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="oe_clear"></div>
+                                </div>
+                                <div t-attf-class="oe_kanban_content">
+                                    <!-- title -->
+                                    Employee name:
+                                    <field name="employee"/>
+                                    <br/>
+                                    Employee phone:
+                                    <field name="phone"/>
+                                    <br/>
+                                    Number of relative:
+                                    <field name="num_of_relatives"/>
+                                    <br/>
+                                    Relative:
+                                    <field name="relatives"/>
+                                    <br/>
+                                    State:
+                                    <field name="state"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="employee_relatives_list_action">
+            <field name="name">employee_relatives</field>
+            <field name="res_model">employee.relatives</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first employee_relatives
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="main_employee_relatives_menu" name="Employee Relatives"/>
+
+        <menuitem id="employee_relatives_menu" name="Employee Relatives"
+                  parent="main_employee_relatives_menu" sequence="10"
+        action="employee_relatives_list_action"/>
+
+</odoo>

@@ -1,0 +1,51 @@
+<odoo>
+<record model="ir.ui.view" id="relatives_form_view">
+            <field name="name">relatives_relatives.form</field>
+            <field name="model">relatives.relatives</field>
+            <field name="arch" type="xml">
+                <form string="Relatives">
+                    <sheet>
+                        <group>
+                            <group>
+
+                              <field name="name"/>
+                              <field name="degree_of_relation"/>
+                            </group>
+                        <group>
+                            <field name="birth_date"/>
+                              <field name="age"/>
+                        </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+      <record model="ir.ui.view" id="relatives_tree_view">
+            <field name="name">relatives_relatives.tree</field>
+            <field name="model">relatives.relatives</field>
+            <field name="arch" type="xml">
+                <tree string="Relatives">
+                    <field name="name"/>
+                    <field name="degree_of_relation"/>
+                    <field name="birth_date"/>
+                    <field name="age"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="relatives_list_action">
+            <field name="name">relatives_relatives</field>
+            <field name="res_model">relatives.relatives</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first relatives
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="relatives_menu" name="Relatives"
+                  parent="main_employee_relatives_menu" sequence="20"
+        action="relatives_list_action"/>
+
+</odoo>

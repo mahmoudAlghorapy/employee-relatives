@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<odoo>
+   <data>
+        <record id="end_date_of_running_contract" model="ir.cron">
+            <field name="name">Check contract status:</field>
+            <field name="model_id" ref="model_employee_relatives"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.check_end_date()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+   </data>
+</odoo>
+

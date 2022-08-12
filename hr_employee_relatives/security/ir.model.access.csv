@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+employee_relatives_manager,employee.relatives,model_employee_relatives,hr_employee_relatives.group_manager,1,1,1,1
+relatives_relatives_manager,relatives.relatives,model_relatives_relatives,hr_employee_relatives.group_manager,1,1,1,1
+employee_relatives_user,employee.relatives,model_employee_relatives,hr_employee_relatives.group_user,1,1,1,0
+relatives_relatives_user,relatives.relatives,model_relatives_relatives,hr_employee_relatives.group_user,1,1,1,0

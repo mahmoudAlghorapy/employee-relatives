@@ -1,0 +1,55 @@
+<odoo>
+
+    <record id="report_Relatives" model="ir.actions.report">
+        <field name="name">Employee Relatives</field>
+        <field name="model">employee.relatives</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr_employee_relatives.report_employee_relatives_view</field>
+        <field name="report_file">hr_employee_relatives.report_employee_relatives_view</field>
+        <field name="binding_model_id" ref="model_employee_relatives"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <template id="report_employee_relatives_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+
+                    <table style="width:100%" class="table table-bordered mb64">
+                        <tr>
+                            <td>Name of employee:</td>
+                            <td>Phone:</td>
+                            <td>Number of relatives</td>
+                            <td>Relative Name:</td>
+                            <td>State</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h2 t-field="doc.employee"/>
+                            </td>
+                            <td>
+                                <h2 t-field="doc.phone"/>
+                            </td>
+                            <td>
+                                <span t-field="doc.num_of_relatives"/>
+                            </td>
+                            <td>
+                                <t t-foreach="doc.relatives" t-as="attendee">
+                                    <li>
+                                        <span t-field="attendee.name"/>
+                                    </li>
+                                </t>
+                            </td>
+                            <td>
+                                <span t-field="doc.state"/>
+                            </td>
+
+                        </tr>
+                    </table>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

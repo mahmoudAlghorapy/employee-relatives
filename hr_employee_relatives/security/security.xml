@@ -1,0 +1,31 @@
+<odoo>
+    <record id="group_manager" model="res.groups">
+        <field name="name">Employee / Manager</field>
+    </record>
+    <record id="group_user" model="res.groups">
+        <field name="name">Employee / User</field>
+    </record>
+
+    <record id="user_employee_relative_rule" model="ir.rule">
+        <field name="name">User see its own relative</field>
+        <field name="model_id" ref="model_employee_relatives"/>
+        <field name="groups" eval="[(4, ref('hr_employee_relatives.group_user'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="domain_force">
+            [('employee.user_id','=',user.id)]
+        </field>
+    </record>
+    <record id="user_relative_relative_rule" model="ir.rule">
+        <field name="name">User see its own relative</field>
+        <field name="model_id" ref="model_relatives_relatives"/>
+        <field name="groups" eval="[(4, ref('hr_employee_relatives.group_user'))]"/>
+        <field name="domain_force">
+            [('employee_rel_id.employee.user_id','=',user.id)]
+        </field>
+    </record>
+
+
+</odoo>
